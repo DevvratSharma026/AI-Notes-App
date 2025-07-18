@@ -5,7 +5,7 @@ const router = express.Router();
 const {signup, login, sendOTP} = require('../controllers/Auth');
 const {auth} = require('../middlewares/auth')
 
-router.post('/sendotp', sendOTP);
+router.post('/sendOTP', sendOTP);
 router.post('/login', login);
 router.post('/signup', signup);
 
