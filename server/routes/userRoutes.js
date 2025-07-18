@@ -13,6 +13,7 @@ router.post('/signup', signup);
 // Protected route to check authentication
 router.get('/me', auth, async (req, res) => {
   try {
+    console.log('ME route hit, user:', req.user); // Debug log
     // Fetch full user data from database
     const user = await User.findById(req.user.userId).select('-password');
     if (!user) {
@@ -20,6 +21,7 @@ router.get('/me', auth, async (req, res) => {
     }
     res.status(200).json({ success: true, user });
   } catch (error) {
+    console.error('ME route error:', error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });

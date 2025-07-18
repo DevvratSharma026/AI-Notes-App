@@ -10,10 +10,34 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/me`, {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        console.log('API URL:', apiUrl);
+        
+        if (!apiUrl) {
+          console.error('VITE_API_URL is not defined');
+          setIsAuthenticated(false);
+          dispatch(clearUser());
+          return;
+        }
+
+        // Get token from localStorage as fallback
+        const token = localStorage.getItem('token');
+        
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        
+        // Add Authorization header if token exists
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(`${apiUrl}/api/v1/auth/me`, {
           method: 'GET',
           credentials: 'include',
+          headers
         });
+        
         const data = await res.json();
         if (data.success) {
           setIsAuthenticated(true);
@@ -21,8 +45,11 @@ const PrivateRoute = ({ children }) => {
         } else {
           setIsAuthenticated(false);
           dispatch(clearUser());
+          // Clear invalid token
+          localStorage.removeItem('token');
         }
-      } catch {
+      } catch (error) {
+        console.error('Auth check failed:', error);
         setIsAuthenticated(false);
         dispatch(clearUser());
       }

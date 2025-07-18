@@ -1,6 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
+// Helper function to get headers with token
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+};
+
 // ====================== Async Thunks ======================
 
 // Fetch all notes
@@ -9,6 +21,7 @@ export const fetchPastes = createAsyncThunk('paste/fetchPastes', async (_, thunk
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/fetchAllNotes`, {
       method: 'GET',
       credentials: 'include',
+      headers: getAuthHeaders()
     });
     const data = await res.json();
     if (data.success) {
@@ -27,6 +40,7 @@ export const deletePaste = createAsyncThunk('paste/deletePaste', async (pasteId,
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/deleteNote/${pasteId}`, {
       method: 'DELETE',
       credentials: 'include',
+      headers: getAuthHeaders()
     });
     const data = await res.json();
     if (data.success) {
@@ -47,7 +61,7 @@ export const createPaste = createAsyncThunk('paste/createPaste', async (noteData
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/createNote`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAuthHeaders(),
       credentials: 'include',
       body: JSON.stringify(noteData),
     });
@@ -68,7 +82,7 @@ export const updatePaste = createAsyncThunk('paste/updatePaste', async ({ id, no
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/updateNote/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getAuthHeaders(),
       credentials: 'include',
       body: JSON.stringify(noteData),
     });
@@ -90,6 +104,7 @@ export const fetchPasteById = createAsyncThunk('paste/fetchPasteById', async (id
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/fetchNoteById/${id}`, {
       method: 'GET',
       credentials: 'include',
+      headers: getAuthHeaders()
     });
     const data = await res.json();
     if (data.success) {

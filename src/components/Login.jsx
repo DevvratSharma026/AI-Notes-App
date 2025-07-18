@@ -16,12 +16,14 @@ const Login = () => {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Send/receive cookies
+        credentials: 'include',
         body: JSON.stringify({ email, password })
       });
       const data = await res.json();
       if (data.success) {
-        navigate('/'); // Redirect to home or dashboard
+        // Store token in localStorage as fallback
+        localStorage.setItem('token', data.token);
+        navigate('/');
       } else {
         setError(data.message || 'Login failed');
       }

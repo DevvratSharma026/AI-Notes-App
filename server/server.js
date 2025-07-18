@@ -8,8 +8,10 @@ const cookieParser = require('cookie-parser');
 
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://ai-notes-app-jet.vercel.app'], // Add your local dev URL
-    credentials: true
+    origin: ['http://localhost:5173', 'https://ai-notes-app-jet.vercel.app/login'], 
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(cookieParser());
 
