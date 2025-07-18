@@ -27,7 +27,7 @@ const Signup = () => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:4000/api/v1/auth/sendOTP', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/sendOTP`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -53,7 +53,7 @@ const Signup = () => {
     setError('');
     setSuccess('');
     try {
-      const res = await fetch('http://localhost:4000/api/v1/auth/signup', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...signupInfo, otp })

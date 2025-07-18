@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/v1/auth/me', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/me`, {
           method: 'GET',
           credentials: 'include',
         });

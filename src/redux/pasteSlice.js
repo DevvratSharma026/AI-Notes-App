@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 // Fetch all notes
 export const fetchPastes = createAsyncThunk('paste/fetchPastes', async (_, thunkAPI) => {
   try {
-    const res = await fetch('http://localhost:4000/api/v1/notes/fetchAllNotes', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/fetchAllNotes`, {
       method: 'GET',
       credentials: 'include',
     });
@@ -24,7 +24,7 @@ export const fetchPastes = createAsyncThunk('paste/fetchPastes', async (_, thunk
 // Delete a note
 export const deletePaste = createAsyncThunk('paste/deletePaste', async (pasteId, thunkAPI) => {
   try {
-    const res = await fetch(`http://localhost:4000/api/v1/notes/deleteNote/${pasteId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/deleteNote/${pasteId}`, {
       method: 'DELETE',
       credentials: 'include',
     });
@@ -45,7 +45,7 @@ export const deletePaste = createAsyncThunk('paste/deletePaste', async (pasteId,
 // Create a note
 export const createPaste = createAsyncThunk('paste/createPaste', async (noteData, thunkAPI) => {
   try {
-    const res = await fetch('http://localhost:4000/api/v1/notes/createNote', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/createNote`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -66,7 +66,7 @@ export const createPaste = createAsyncThunk('paste/createPaste', async (noteData
 // Update a note
 export const updatePaste = createAsyncThunk('paste/updatePaste', async ({ id, noteData }, thunkAPI) => {
   try {
-    const res = await fetch(`http://localhost:4000/api/v1/notes/updateNote/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/updateNote/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -87,7 +87,7 @@ export const updatePaste = createAsyncThunk('paste/updatePaste', async ({ id, no
 // Fetch a note by ID
 export const fetchPasteById = createAsyncThunk('paste/fetchPasteById', async (id, thunkAPI) => {
   try {
-    const res = await fetch(`http://localhost:4000/api/v1/notes/fetchNoteById/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/notes/fetchNoteById/${id}`, {
       method: 'GET',
       credentials: 'include',
     });

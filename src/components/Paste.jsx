@@ -63,7 +63,7 @@ const Paste = () => {
     if (summaries[paste._id]) return; // Already summarized
     setSummaryLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/ai/summarize', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/summarize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: paste.description })
@@ -109,7 +109,7 @@ const Paste = () => {
     }));
     setChatInput((prev) => ({ ...prev, [noteId]: '' }));
     try {
-      const res = await fetch('http://localhost:4000/api/ai/chat', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
