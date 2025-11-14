@@ -12,7 +12,7 @@ router.post('/summarize', async (req, res) => {
     const groqRes = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'llama3-70b-8192', // or another model Groq supports
+        model: 'llama-3.1-8b-instant', // or another model Groq supports
         messages: [
           { role: 'system', content: 'You are a helpful assistant that summarizes notes.' },
           { role: 'user', content: `Summarize this note in 2-3 sentences:\n\n${description}` }
@@ -30,6 +30,7 @@ router.post('/summarize', async (req, res) => {
     const summary = groqRes.data.choices[0].message.content.trim();
     res.json({ success: true, summary });
   } catch (err) {
+     console.error("Groq Error Response:", err.response?.data || err.message);
     res.status(500).json({ success: false, message: 'AI summarization failed', error: err.message });
   }
 });
@@ -50,7 +51,7 @@ router.post('/chat', async (req, res) => {
     const groqRes = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'llama3-70b-8192',
+        model: 'llama-3.1-8b-instant',
         messages,
         max_tokens: 300,
         temperature: 0.7,

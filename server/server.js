@@ -18,6 +18,9 @@ app.use(cookieParser());
 const dbConnect = require('./config/database');
 dbConnect.connect();
 
+console.log("Groq key loaded:", !!process.env.GROQ_API_KEY);
+
+
 const noteRoutes = require('./routes/noteRoutes');
 const userRoutes = require('./routes/userRoutes');
 const aiRoutes = require('./routes/aiRoutes');
