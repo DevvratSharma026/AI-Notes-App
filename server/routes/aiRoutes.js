@@ -30,7 +30,6 @@ router.post('/summarize', async (req, res) => {
     const summary = groqRes.data.choices[0].message.content.trim();
     res.json({ success: true, summary });
   } catch (err) {
-     console.error("Groq Error Response:", err.response?.data || err.message);
     res.status(500).json({ success: false, message: 'AI summarization failed', error: err.message });
   }
 });
