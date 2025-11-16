@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors({
     origin: ['http://localhost:5173', 'https://ai-notes-app-jet.vercel.app'], 
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(cookieParser());
@@ -18,7 +18,7 @@ app.use(cookieParser());
 const dbConnect = require('./config/database');
 dbConnect.connect();
 
-
+app.use('*',cors());
 const noteRoutes = require('./routes/noteRoutes');
 const userRoutes = require('./routes/userRoutes');
 const aiRoutes = require('./routes/aiRoutes');
