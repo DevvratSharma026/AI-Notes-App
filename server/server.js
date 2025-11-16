@@ -18,7 +18,7 @@ app.use(cookieParser());
 const dbConnect = require('./config/database');
 dbConnect.connect();
 
-app.use('*',cors());
+app.options('*',cors());
 const noteRoutes = require('./routes/noteRoutes');
 const userRoutes = require('./routes/userRoutes');
 const aiRoutes = require('./routes/aiRoutes');
